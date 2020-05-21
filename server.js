@@ -7,12 +7,16 @@ var cors        = require('cors');
 var apiRoutes         = require('./routes/api.js');
 var fccTestingRoutes  = require('./routes/fcctesting.js');
 var runner            = require('./test-runner');
+const helmet          = require('helmet');
+const noCache         = require('nocache')
 
 var app = express();
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //USED FOR FCC TESTING PURPOSES ONLY!
+app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }))
+app.use(noCache())
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
